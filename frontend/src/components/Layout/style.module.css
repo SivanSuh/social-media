@@ -1,0 +1,9 @@
+.layout {
+    @apply flex flex-col px-2
+}
+.alan {
+    @apply flex items-start justify-between
+}
+.post {
+    @apply w-auto flex flex-col
+}

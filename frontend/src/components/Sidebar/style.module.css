@@ -1,0 +1,6 @@
+.sidebar {
+    @apply w-auto
+}
+.links {
+    @apply p-1 hover:bg-gray-200 flex flex-col
+}
