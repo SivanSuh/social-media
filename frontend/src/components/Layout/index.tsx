@@ -3,6 +3,7 @@ import Navbar from "../Navbar";
 import LayoutProps from "./props";
 import Sidebar from "../Sidebar";
 import Style from "./style.module.css";
+import UserCard from "../UserCard";
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
@@ -11,7 +12,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className={Style.alan}>
         <Sidebar />
         <div className={Style.post}>{children}</div>
-        <div>Other User</div>
+        <div>
+          <h2>Other User</h2>
+          <UserCard />
+        </div>
       </div>
     </main>
   );

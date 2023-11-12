@@ -1,0 +1,6 @@
+.userCard {
+    @apply flex flex-col border-2 px-4 py-1
+}
+.description {
+    @apply flex items-center gap-2
+}

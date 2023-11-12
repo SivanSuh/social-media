@@ -1,9 +1,12 @@
 .postCard {
-    @apply max-w-lg w-full h-auto border-2 p-1 my-2
+    @apply  w-11/12 mx-auto h-auto border-2 p-1 my-2
 }
 .title {
     @apply flex items-start py-1 gap-2
 }
 .image {
     @apply w-full h-72 object-cover
+}
+.icons {
+    @apply flex items-center  justify-around py-1
 }

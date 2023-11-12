@@ -1,5 +1,7 @@
 import Avatar from "../AvatarComponent";
 import Style from "./style.module.css";
+import { FaRegCommentDots } from "react-icons/fa";
+import { GrLike, GrDislike } from "react-icons/gr";
 
 const PostCard = () => {
   return (
@@ -17,12 +19,10 @@ const PostCard = () => {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit alias
         ipsam est!
       </div>
-      <div>
-        <h4>Comments</h4>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime in
-          reprehenderit magnam odit culpa sequi eaque!
-        </p>
+      <div className={Style.icons}>
+        <GrLike />
+        <GrDislike />
+        <FaRegCommentDots />
       </div>
     </div>
   );

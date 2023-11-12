@@ -2,7 +2,7 @@
     @apply flex flex-col px-2
 }
 .alan {
-    @apply flex items-start justify-between
+    @apply grid grid-cols-[300px_minmax(auto,_1fr)_300px] gap-3
 }
 .post {
     @apply w-auto flex flex-col
