@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const validator = require("validator");
+
 const UserModels = mongoose.Schema({
   userName: {
     type: String,
@@ -30,4 +33,48 @@ const UserModels = mongoose.Schema({
   },
 });
 
+UserModels.statics.register = async function (
+  email,
+  password,
+  userName,
+  profilePicture
+) {
+  if (!email || !password || !userName) {
+    throw Error(" Register Alanları boş geçilemez");
+  }
+  if (!validator.isEmail(email)) {
+    throw Error("Email Kurallarına Uygun Değil");
+  }
+  if (!validator.isStrongPassword(password)) {
+    throw Error("parola güçlü değil");
+  }
+  const user = await this.findOne({ email });
+  if (user) {
+    throw Error("Email Mevcut");
+  }
+  const salt = await bcrypt.genSalt(10);
+  const pass = await bcrypt.hash(password, salt);
+  const createUser = await this.create({
+    email,
+    password: pass,
+    userName,
+    profilePicture,
+  });
+  return createUser;
+};
+
+UserModels.statics.login = async function (email, password) {
+  if (!email || !password) {
+    throw Error("Alanları Boş Bırakmayınız");
+  }
+  const user = await this.findOne({ email });
+  if (!user) {
+    throw Error("Email Bulunamadı");
+  }
+  const pass = await bcrypt.compare(password, user.password);
+  if (!pass) {
+    throw Error("Paralolar Eşleşmiyor");
+  }
+  return user;
+};
 module.exports = mongoose.model("User", UserModels);
