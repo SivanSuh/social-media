@@ -2,7 +2,11 @@ import Input from "@/components/Atom/Input";
 import Style from "./style.module.css";
 import Button from "@/components/Atom/Button";
 import Link from "next/link";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { login } from "@/store/slices/authSlice";
+import LoginModel from "@/models/LoginModel";
+import { AppDispatch } from "@/store";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const {
@@ -11,8 +15,14 @@ const Login = () => {
     handleSubmit,
   } = useForm<FieldValues>();
 
-  const onSubmit = (data: any) => {
+  const dispatch = AppDispatch();
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
     if (data.email.trim() == "" || data.password.trim() == "") return;
+    await dispatch(login(data))
+      .unwrap()
+      .then(() => router.push("/"));
     console.log("data", data);
   };
   return (

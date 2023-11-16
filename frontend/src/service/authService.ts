@@ -18,8 +18,8 @@ const registerService = async (data:RegisterModel) => {
         data
     })
 }
-
-export default {
+const authService = {
     registerService,
     loginService
 }
+export default authService
