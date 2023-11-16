@@ -6,7 +6,7 @@ const Sidebar = () => {
   return (
     <div className={Style.sidebar}>
       {SidebarData.map((item) => (
-        <Link href={item.url} className={Style.links}>
+        <Link href={item.url} className={Style.links} key={item.title}>
           {item.title}
         </Link>
       ))}
