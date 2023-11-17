@@ -6,10 +6,31 @@ import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import Layout from "@/components/Layout";
 import PostCard from "@/components/PostCard";
+import { useEffect, useState } from "react";
+import { AppDispatch } from "@/store";
+import Cookies from "js-cookie";
+import { login } from "@/store/slices/authSlice";
+import { useRouter } from "next/navigation";
+import LoginPage from "./auth/login";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [loginControl, setLoginControl] = useState<boolean>(false);
+  const dispatch = AppDispatch();
+  const refreshCookie = Cookies.get("login");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (refreshCookie) {
+      dispatch(login(JSON.parse(refreshCookie)));
+      setLoginControl(true);
+    } else {
+      setLoginControl(false);
+      router.push("/auth/login");
+    }
+  }, [login]);
+
   return (
     <>
       <Head>
@@ -19,10 +40,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="max-w-7xl mx-auto">
-        <Layout>
-          <PostCard />
-          <PostCard />
-        </Layout>
+        {loginControl ? (
+          <Layout>
+            <PostCard />
+            <PostCard />
+          </Layout>
+        ) : (
+          <LoginPage />
+        )}
       </main>
     </>
   );

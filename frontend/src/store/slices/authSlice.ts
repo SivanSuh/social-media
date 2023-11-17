@@ -6,12 +6,12 @@ import Cookie from "js-cookie"
 
 interface AuthProps {
     authData:RegisterModel | null | unknown 
-    error:boolean
+    error:any
 }
 
 const initialState:AuthProps = {
     authData:null,
-    error:false
+    error:null
 }
 
 export const login = createAsyncThunk("login", async (body:LoginModel, {rejectWithValue}) => {
@@ -23,11 +23,13 @@ export const login = createAsyncThunk("login", async (body:LoginModel, {rejectWi
         return rejectWithValue(error?.response?.data?.hata)
     }
 }) 
-export const register = createAsyncThunk("register", async (body:RegisterModel, {rejectWithValue}) => {
+export const registerRequest = createAsyncThunk("register", async (body:RegisterModel, {rejectWithValue}) => {
     try {
         const response = await authService.registerService(body)
-        return response.data
+        console.log("reposn",response)
+        return response
     } catch (error) {
+        console.log("errr",error)
         return rejectWithValue(error?.response?.data?.hata)
     }
 })
@@ -41,8 +43,17 @@ const authSlice = createSlice({
             state.authData = action.payload?.data
             console.log("action.payload?.data",action.payload?.data)
         })
-        builder.addCase(login.rejected,(state) => {
-            state.error = true
+        builder.addCase(login.rejected,(state,action) => {
+            console.log("errr",action.payload)
+            state.error = action.payload
+        })
+        // register
+
+        builder.addCase(registerRequest.fulfilled,(state,action) => {
+            state.authData = action.payload?.data
+        })
+        builder.addCase(registerRequest.rejected,(state,action) => {
+            state.error = action.payload
         })
     },
 })

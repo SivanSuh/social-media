@@ -16,10 +16,11 @@ const Input: React.FC<InputProps> = ({
         type={type}
         placeholder={placeholder}
         name={name}
-        className={Style.input}
+        //className={Style.input}
+        className={`${errors?.[name] ? Style.errors : Style.input}`}
         {...register(name, { required })}
       />
-      {errors == true && <p className={Style.errors}>{errors.toString()}</p>}
+      {/* {errors == true && <p className={Style.errors}>{errors.toString()}</p>} */}
     </>
   );
 };

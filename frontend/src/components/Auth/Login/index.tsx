@@ -5,8 +5,9 @@ import Link from "next/link";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { login } from "@/store/slices/authSlice";
 import LoginModel from "@/models/LoginModel";
-import { AppDispatch } from "@/store";
+import { AppDispatch, RootState } from "@/store";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 const Login = () => {
   const {
@@ -15,11 +16,12 @@ const Login = () => {
     handleSubmit,
   } = useForm<FieldValues>();
 
+  const { error } = useSelector((state: RootState) => state.auth);
   const dispatch = AppDispatch();
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
-    if (data.email.trim() == "" || data.password.trim() == "") return;
+    console.log("errrrrorr", error);
     await dispatch(login(data))
       .unwrap()
       .then(() => router.push("/"));
@@ -54,6 +56,7 @@ const Login = () => {
         <Link href={"/"} className="hover:underline">
           Return Home
         </Link>
+        {error && <h2 className="text-center text-red-700">{error}</h2>}
       </form>
     </div>
   );

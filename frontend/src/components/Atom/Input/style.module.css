@@ -2,5 +2,5 @@
     @apply outline-none border-2 w-full p-2 m-2 rounded-full
 }
 .errors {
-    @apply text-red-600
+    @apply text-red-600 input 
 }
