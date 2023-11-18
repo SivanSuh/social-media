@@ -31,6 +31,10 @@ const UserModels = mongoose.Schema({
     type: [String],
     default: 0,
   },
+  posts: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "PostModel",
+  },
 });
 
 UserModels.statics.register = async function (
