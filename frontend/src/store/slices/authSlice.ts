@@ -41,7 +41,6 @@ const authSlice = createSlice({
     extraReducers:(builder) => {
         builder.addCase(login.fulfilled,(state,action) => {
             state.authData = action.payload?.data
-            console.log("action.payload?.data",action.payload?.data)
         })
         builder.addCase(login.rejected,(state,action) => {
             console.log("errr",action.payload)

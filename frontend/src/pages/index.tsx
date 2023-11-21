@@ -12,10 +12,11 @@ import Cookies from "js-cookie";
 import { login } from "@/store/slices/authSlice";
 import { useRouter } from "next/navigation";
 import LoginPage from "./auth/login";
+import postCardService from "@/service/postCardService";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({ data }: any) {
   const [loginControl, setLoginControl] = useState<boolean>(false);
   const dispatch = AppDispatch();
   const refreshCookie = Cookies.get("login");
@@ -42,8 +43,13 @@ export default function Home() {
       <main className="max-w-7xl mx-auto">
         {loginControl ? (
           <Layout>
-            <PostCard />
-            <PostCard />
+            <PostCard
+              description={data.description}
+              image={data.image}
+              title={data.user.userName}
+              profileImage={data.user.profilePicture}
+            />
+            {/* <PostCard /> */}
           </Layout>
         ) : (
           <LoginPage />
@@ -51,4 +57,13 @@ export default function Home() {
       </main>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const res = await postCardService.getCard("6558ab4948fbd537afebc5e7");
+  return {
+    props: {
+      data: res.data,
+    },
+  };
 }

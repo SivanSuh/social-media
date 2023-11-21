@@ -1,5 +1,6 @@
 export default interface PostCardModel {
-    title:string;
+    description:string;
     image:string;
     likes:number
+    user:any
 }

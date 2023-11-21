@@ -9,7 +9,6 @@ import { RootState } from "@/store";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { authData } = useSelector((state: RootState) => state.auth);
-  console.log("auth data", authData);
 
   return (
     <nav className={Style.nav}>
