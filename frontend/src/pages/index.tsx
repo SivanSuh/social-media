@@ -7,21 +7,24 @@ import Sidebar from "@/components/Sidebar";
 import Layout from "@/components/Layout";
 import PostCard from "@/components/PostCard";
 import { useEffect, useState } from "react";
-import { AppDispatch } from "@/store";
+import { AppDispatch, RootState } from "@/store";
 import Cookies from "js-cookie";
 import { login } from "@/store/slices/authSlice";
 import { useRouter } from "next/navigation";
 import LoginPage from "./auth/login";
 import postCardService from "@/service/postCardService";
+import { useSelector } from "react-redux";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ data }: any) {
   const [loginControl, setLoginControl] = useState<boolean>(false);
+
   const dispatch = AppDispatch();
   const refreshCookie = Cookies.get("login");
   const router = useRouter();
 
+  console.log("dta,", data);
   useEffect(() => {
     if (refreshCookie) {
       dispatch(login(JSON.parse(refreshCookie)));
@@ -43,13 +46,16 @@ export default function Home({ data }: any) {
       <main className="max-w-7xl mx-auto">
         {loginControl ? (
           <Layout>
-            <PostCard
-              description={data.description}
-              image={data.image}
-              title={data.user.userName}
-              profileImage={data.user.profilePicture}
-            />
-            {/* <PostCard /> */}
+            {data.map((item) => {
+              return (
+                <PostCard
+                  description={item?.description}
+                  image={item?.image}
+                  title={item?.user?.userName}
+                  profileImage={item?.user?.profilePicture}
+                />
+              );
+            })}
           </Layout>
         ) : (
           <LoginPage />
@@ -60,7 +66,7 @@ export default function Home({ data }: any) {
 }
 
 export async function getServerSideProps() {
-  const res = await postCardService.getCard("6558ab4948fbd537afebc5e7");
+  const res = await postCardService.getAllPost();
   return {
     props: {
       data: res.data,

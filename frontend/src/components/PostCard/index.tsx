@@ -1,7 +1,7 @@
 import Avatar from "../AvatarComponent";
 import Style from "./style.module.css";
 import { FaRegCommentDots } from "react-icons/fa";
-import { GrLike, GrDislike } from "react-icons/gr";
+import { GrLike } from "react-icons/gr";
 import PostCardProps from "./props";
 
 const PostCard: React.FC<PostCardProps> = ({
@@ -25,7 +25,7 @@ const PostCard: React.FC<PostCardProps> = ({
       <div>{description}</div>
       <div className={Style.icons}>
         <GrLike />
-        <GrDislike />
+        <div />
         <FaRegCommentDots />
       </div>
     </div>

@@ -18,8 +18,22 @@ const registerService = async (data:RegisterModel) => {
         data
     })
 }
+const otherUser = async () => {
+    return api({
+        url:"/auth/otherUser",
+        method:"GET",
+    })
+}
+const getUser = async (id:string) => {
+    return api({
+    url:`/auth/getUser/${id}`,
+    method:"GET"
+})
+}
 const authService = {
     registerService,
-    loginService
+    loginService,
+    otherUser,
+    getUser
 }
 export default authService

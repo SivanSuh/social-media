@@ -24,7 +24,35 @@ const login = async (req, res) => {
     res.status(400).json({ hata: error.message });
   }
 };
+
+const otherUser = async (req, res) => {
+  try {
+    const allUser = await UserModels.find({}).populate({
+      path: "posts",
+      select: "--password",
+    });
+    res.send(allUser);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const selectUser = await UserModels.findOne({ _id: id }).populate({
+      path: "posts",
+      select: "-password",
+    });
+    res.status(200).json(selectUser);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   register,
   login,
+  otherUser,
+  getUser,
 };

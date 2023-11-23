@@ -1,4 +1,5 @@
 import LoginModel from "@/models/LoginModel";
+import OtherUserModels from "@/models/OtherUserModel";
 import RegisterModel from "@/models/RegisterModel";
 import authService from "@/service/authService";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
@@ -7,11 +8,13 @@ import Cookie from "js-cookie"
 interface AuthProps {
     authData:RegisterModel | null | unknown 
     error:any
+    OtherUser:OtherUserModels | []
 }
 
 const initialState:AuthProps = {
     authData:null,
-    error:null
+    error:null,
+    OtherUser:[]
 }
 
 export const login = createAsyncThunk("login", async (body:LoginModel, {rejectWithValue}) => {
@@ -34,6 +37,16 @@ export const registerRequest = createAsyncThunk("register", async (body:Register
     }
 })
 
+export const otherUsers = createAsyncThunk("other-user", async () => {
+    try {
+        const response = await authService.otherUser()
+        console.log("reposn",response)
+        return response
+    } catch (error) {
+        console.log("errr",error)
+        
+    }
+})
 const authSlice = createSlice({
     name:"auth",
     initialState,
@@ -54,6 +67,12 @@ const authSlice = createSlice({
         builder.addCase(registerRequest.rejected,(state,action) => {
             state.error = action.payload
         })
+        builder.addCase(otherUsers.fulfilled,(state,action) => {
+            state.OtherUser = action.payload?.data
+        })
+        builder.addCase(otherUsers.rejected, (state,action) => {
+            state.error = action.payload
+        }) 
     },
 })
 

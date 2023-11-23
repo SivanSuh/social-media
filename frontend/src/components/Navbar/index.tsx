@@ -5,6 +5,7 @@ import Popup from "../Popup";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import Dropdown from "../Dropdown";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -14,10 +15,31 @@ const Navbar = () => {
     <nav className={Style.nav}>
       <Link href={"/"}>Logo</Link>
       <div>Search</div>
-      <div onClick={() => setOpen(true)}>
-        <Avatar image={authData?.profilePicture} />
-      </div>
-      <Popup open={open} close={setOpen}>
+      <Dropdown
+        open={open}
+        setOpen={setOpen}
+        values={
+          <div onClick={() => setOpen(true)}>
+            <Avatar image={authData?.profilePicture} />
+          </div>
+        }
+      >
+        <div>
+          <p>
+            <Link href={"/profile"}>{authData?.userName}</Link>
+          </p>
+          {authData?.userName ? (
+            <p>Logout</p>
+          ) : (
+            <>
+              <Link href="/auth/login">Login</Link>
+              <br />
+              <Link href="/auth/register">Register</Link>
+            </>
+          )}
+        </div>
+      </Dropdown>
+      {/* <Popup open={open} close={setOpen}>
         <p>{authData?.userName}</p>
         {authData?.userName ? (
           <p>Logout</p>
@@ -28,7 +50,7 @@ const Navbar = () => {
             <Link href="/auth/register">Register</Link>
           </>
         )}
-      </Popup>
+      </Popup> */}
     </nav>
   );
 };

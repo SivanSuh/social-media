@@ -7,8 +7,15 @@ const getCard = async (dataId:string) => {
     })
 }
 
+const getAllPost = async () => {
+    return api({
+        url:"/posts/getAllPost",
+        method:"GET"
+    })
+} 
 const postCardService = {
-    getCard
+    getCard,
+    getAllPost
 }
 
 export default postCardService
