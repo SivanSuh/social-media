@@ -47,10 +47,12 @@ export default function Home({ data }: any) {
         {loginControl ? (
           <Layout>
             {data.map((item) => {
+              console.log("itemmm", item);
               return (
                 <PostCard
                   description={item?.description}
                   image={item?.image}
+                  id={item?.user?._id}
                   title={item?.user?.userName}
                   profileImage={item?.user?.profilePicture}
                 />

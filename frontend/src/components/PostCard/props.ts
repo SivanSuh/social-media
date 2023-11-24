@@ -3,4 +3,5 @@ export default interface PostCardProps {
     image:string;
     title:string
     profileImage:string
+    id:string;
 }

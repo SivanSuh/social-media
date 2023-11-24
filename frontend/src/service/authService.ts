@@ -30,10 +30,18 @@ const getUser = async (id:string) => {
     method:"GET"
 })
 }
+const getUserPost = async (id:string) => {
+    return api({
+        url:`/posts/getUserPosts/${id}`,
+        method:"GET"
+    })
+}
+
 const authService = {
     registerService,
     loginService,
     otherUser,
-    getUser
+    getUser,
+    getUserPost
 }
 export default authService

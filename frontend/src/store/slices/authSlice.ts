@@ -9,12 +9,14 @@ interface AuthProps {
     authData:RegisterModel | null | unknown 
     error:any
     OtherUser:OtherUserModels | []
+    selectUser:OtherUserModels | null
 }
 
 const initialState:AuthProps = {
     authData:null,
     error:null,
-    OtherUser:[]
+    OtherUser:[],
+    selectUser:null
 }
 
 export const login = createAsyncThunk("login", async (body:LoginModel, {rejectWithValue}) => {
@@ -47,6 +49,15 @@ export const otherUsers = createAsyncThunk("other-user", async () => {
         
     }
 })
+
+export const selectedUser = createAsyncThunk("select-user", async (id:string) => {
+    try {
+        const response = await authService.getUser(id)
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+})
 const authSlice = createSlice({
     name:"auth",
     initialState,
@@ -73,6 +84,13 @@ const authSlice = createSlice({
         builder.addCase(otherUsers.rejected, (state,action) => {
             state.error = action.payload
         }) 
+
+        builder.addCase(selectedUser.fulfilled,(state,action) => {
+            state.selectUser = action.payload?.data
+        })
+        builder.addCase(selectedUser.rejected,(state,action) => {
+            state.error = action.payload
+        })
     },
 })
 

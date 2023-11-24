@@ -1,15 +1,18 @@
 import PostCardModel from "@/models/PostCardModel";
+import authService from "@/service/authService";
 import postCardService from "@/service/postCardService";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 interface PostSliceProps {
     posts:PostCardModel | null;
-    error:boolean
+    error:boolean;
+    userPost:any
 }
 
 const initialState:PostSliceProps = {
     posts:null,
-    error:false
+    error:false,
+    userPost:[]
 }
 
 export const getUserPost = createAsyncThunk("getPost", async (data:string, {rejectWithValue}) => {
@@ -21,6 +24,14 @@ export const getUserPost = createAsyncThunk("getPost", async (data:string, {reje
     }
 })
 
+export const getAllUserPost = createAsyncThunk("get-user-post", async (id:string) => {
+    try {
+        const response = await authService.getUserPost(id)
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+})
 const postCardSlice = createSlice({
     name:"PostCard",
     initialState,
@@ -31,6 +42,11 @@ const postCardSlice = createSlice({
         })
         builder.addCase(getUserPost.rejected,(state,action) => {
             state.error = true
+        })
+
+        // get user post
+        builder.addCase(getAllUserPost.fulfilled,(state,action) => {
+            state.userPost = action.payload?.data
         })
     }
 })

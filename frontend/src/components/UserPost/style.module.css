@@ -1,0 +1,6 @@
+.userPost {
+    @apply flex  h-56 w-full
+}
+.alan {
+    @apply p-1 border-2 w-full
+}

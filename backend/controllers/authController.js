@@ -40,10 +40,12 @@ const otherUser = async (req, res) => {
 const getUser = async (req, res) => {
   const { id } = req.params;
   try {
-    const selectUser = await UserModels.findOne({ _id: id }).populate({
-      path: "posts",
-      select: "-password",
-    });
+    const selectUser = await UserModels.findById(id)
+      .populate({
+        path: "posts",
+        select: "-password",
+      })
+      .exec();
     res.status(200).json(selectUser);
   } catch (error) {
     console.log(error);

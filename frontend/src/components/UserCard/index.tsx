@@ -5,6 +5,7 @@ import { otherUsers } from "@/store/slices/authSlice";
 import { AppDispatch, RootState } from "@/store";
 import { useSelector } from "react-redux";
 import OtherUserModels from "@/models/OtherUserModel";
+import Link from "next/link";
 
 const UserCard = () => {
   const dispatch = AppDispatch();
@@ -18,17 +19,25 @@ const UserCard = () => {
     <>
       {OtherUser?.map((item: OtherUserModels) => {
         return (
-          <div className={Style.userCard} key={item._id}>
-            <div className={Style.description}>
-              <Avatar image={item?.profilePicture} />
-              <h3>{item.userName}</h3>
-              {authData?._id === item?._id ? (
-                <small className={Style.small}>ME</small>
-              ) : (
-                <button className={Style.follow}>Follow</button>
-              )}
-            </div>
-          </div>
+          <>
+            {authData?._id !== item._id && (
+              <Link
+                href={`/other-user/${item?._id}`}
+                className={Style.userCard}
+                key={item._id}
+              >
+                <div className={Style.description}>
+                  <Avatar image={item?.profilePicture} />
+                  <h3>{item.userName}</h3>
+                  {authData?._id === item?._id ? (
+                    <small className={Style.small}>ME</small>
+                  ) : (
+                    <button className={Style.follow}>Follow</button>
+                  )}
+                </div>
+              </Link>
+            )}
+          </>
         );
       })}
     </>
