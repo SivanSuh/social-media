@@ -1,5 +1,5 @@
 .tab {
-    @apply flex items-start justify-center  gap-3 w-full text-center
+    @apply flex items-start justify-center  gap-3 w-full text-center relative
 }
 
 .active {

@@ -63,7 +63,7 @@ const OtherUserDetailPage = () => {
             </div>
           </TabItem>
           <TabItem isActive={tab} title="Posts" setTab={setTab}>
-            <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center justify-between gap-2">
               {userPost.map((item: any) => {
                 return <UserPost items={item} key={item._id} />;
               })}

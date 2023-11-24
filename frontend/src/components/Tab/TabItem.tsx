@@ -13,7 +13,9 @@ const TabItem: React.FC<TabItemProps> = ({
       <p className={`${isActive === title && Style.active} my-4 p3-2`}>
         {title}
       </p>
-      {isActive === title && <main className="visible">{children}</main>}
+      {isActive === title && (
+        <main className="absolute left-0 right-0">{children}</main>
+      )}
     </div>
   );
 };
