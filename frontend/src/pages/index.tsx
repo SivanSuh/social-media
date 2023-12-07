@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import LoginPage from "./auth/login";
 import postCardService from "@/service/postCardService";
 import { useSelector } from "react-redux";
+import PostCardModel from "@/models/PostCardModel";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,7 +47,7 @@ export default function Home({ data }: any) {
       <main className="max-w-7xl mx-auto">
         {loginControl ? (
           <Layout>
-            {data.map((item) => {
+            {data.map((item: any) => {
               console.log("itemmm", item);
               return (
                 <PostCard
@@ -55,6 +56,7 @@ export default function Home({ data }: any) {
                   id={item?.user?._id}
                   title={item?.user?.userName}
                   profileImage={item?.user?.profilePicture}
+                  liked={item?.liked}
                 />
               );
             })}

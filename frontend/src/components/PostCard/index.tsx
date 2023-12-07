@@ -11,7 +11,9 @@ const PostCard: React.FC<PostCardProps> = ({
   image,
   id,
   title,
+  liked,
 }) => {
+  console.log("liked", liked);
   return (
     <div className={Style.postCard}>
       <Link href={`/other-user/${id}`} className={Style.title}>
@@ -26,7 +28,10 @@ const PostCard: React.FC<PostCardProps> = ({
       />
       <div>{description}</div>
       <div className={Style.icons}>
-        <GrLike />
+        <div className={Style.icons}>
+          <GrLike />
+          <span>{liked?.length}</span>
+        </div>
         <div />
         <FaRegCommentDots />
       </div>

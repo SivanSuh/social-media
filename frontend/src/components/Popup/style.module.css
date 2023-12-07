@@ -2,7 +2,7 @@
   @apply  fixed top-0 left-0 right-0 bottom-0 w-full bg-slate-300 h-full  bg-opacity-30
 }
 .modal {
-    @apply text-center fixed top-1/4  pb-10 bg-green-400 max-w-sm w-full right-2/4 h-72 translate-x-2/4 rounded-md p-2;
+    @apply text-center fixed top-1/4  pb-10 bg-white max-w-md w-full right-2/4 h-auto translate-x-2/4 rounded-md p-2;
 }
 .closeContainer {
     @apply flex items-center justify-between p-1

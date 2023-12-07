@@ -4,10 +4,12 @@ const {
   getPost,
   getUserPost,
   getAllPost,
+  likePost,
 } = require("../controllers/postController");
 const router = express.Router();
 
 router.post("/createPost/:id", createPost);
+router.put("/likes/:postId", likePost);
 router.get("/getPost/:id", getPost);
 router.get("/getUserPosts/:id", getUserPost);
 router.get("/getAllPost", getAllPost);

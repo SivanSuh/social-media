@@ -4,4 +4,5 @@ export default interface PostCardProps {
     title:string
     profileImage:string
     id:string;
+    liked:Array<string>
 }

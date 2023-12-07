@@ -52,9 +52,27 @@ const getUser = async (req, res) => {
   }
 };
 
+const followUser = async (req, res) => {
+  const { userID } = req.body;
+  const { followUserId } = req.params;
+  try {
+    const user = await UserModels.findById(followUserId);
+    if (!user.followers.includes(userID)) {
+      await user.updateOne({ $push: { followers: userID } });
+      res.status(200).json("takip ediliyor");
+    } else {
+      await user.updateOne({ $pull: { followers: userID } });
+      res.status(200).json("takip etmiyorsun");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   register,
   login,
   otherUser,
   getUser,
+  followUser,
 };

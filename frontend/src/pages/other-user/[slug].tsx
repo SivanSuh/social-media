@@ -28,17 +28,6 @@ const OtherUserDetailPage = () => {
     dispatch(getAllUserPost(slug as string));
   }, [dispatch, slug]);
 
-  console.log("user posyt", userPost);
-  const item = [
-    {
-      title: "Merhaba",
-      childrens: "<p>Hoppa</p>",
-    },
-    {
-      title: "Naber",
-      childrens: "<p>dafa</p>",
-    },
-  ];
   return (
     <Layout>
       <main className="flex flex-col items-center">
@@ -56,12 +45,12 @@ const OtherUserDetailPage = () => {
               <p>{selectUser?.followers[0]}</p>
             </div>
           </TabItem>
-          <TabItem isActive={tab} title="Likes" setTab={setTab}>
+          {/* <TabItem isActive={tab} title="Likes" setTab={setTab}>
             <div className="flex justify-center items-center gap-2">
               <CiSignpostDuo1 />
               <p>{selectUser?.liked[0]}</p>
             </div>
-          </TabItem>
+          </TabItem> */}
           <TabItem isActive={tab} title="Posts" setTab={setTab}>
             <div className="flex items-center justify-between gap-2">
               {userPost.map((item: any) => {

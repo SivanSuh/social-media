@@ -1,25 +1,18 @@
-import React, { useEffect } from "react";
+import { RefObject, useEffect } from "react";
 
-const EVENT = "mousedown";
-
-interface UseClickAwayProps {
-  ref: React.RefObject<HTMLInputElement>;
-  callback: (event: any) => void;
-}
-
-const useClickAway: React.FC<UseClickAwayProps> = ({ ref, callback }) => {
+export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
+  ref: RefObject<T>,
+  handler: () => void
+): void {
+  const handleClick = (e: any) => {
+    if (ref.current && !ref.current.contains(e.target)) {
+      handler();
+    }
+  };
   useEffect(() => {
-    const listener = (event: any) => {
-      if (!ref || !ref.current || ref.current.contains(event.target)) {
-        return;
-      }
-      callback(event);
-      document.addEventListener(EVENT, listener);
-      return () => {
-        document.removeEventListener(EVENT, listener);
-      };
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
     };
-  }, [ref, callback]);
-};
-
-export default useClickAway;
+  });
+}

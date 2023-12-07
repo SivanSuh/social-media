@@ -8,5 +8,5 @@
     @apply w-full h-72 object-cover
 }
 .icons {
-    @apply flex items-center  justify-around py-1
+    @apply flex items-center  justify-around p-1
 }

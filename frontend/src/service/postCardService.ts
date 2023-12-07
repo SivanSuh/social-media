@@ -1,3 +1,4 @@
+import PostCardModel from "@/models/PostCardModel"
 import { api } from "./api"
 
 const getCard = async (dataId:string) => {
@@ -13,9 +14,17 @@ const getAllPost = async () => {
         method:"GET"
     })
 } 
+const createNewPost = async (data:PostCardModel) => {
+    return api({
+        url:`/posts/createPost/${data.id}`,
+        method:"POST",
+        data
+    })
+}
 const postCardService = {
     getCard,
-    getAllPost
+    getAllPost,
+    createNewPost
 }
 
 export default postCardService
