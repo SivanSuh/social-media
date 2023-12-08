@@ -27,7 +27,6 @@ const UserModels = new Schema(
     },
     followers: {
       type: [String],
-      default: 0,
     },
     liked: {
       type: [String],

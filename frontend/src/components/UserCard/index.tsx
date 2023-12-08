@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import Avatar from "../AvatarComponent";
 import Style from "./style.module.css";
 import { otherUsers } from "@/store/slices/authSlice";
@@ -14,12 +14,12 @@ const UserCard = () => {
   useEffect(() => {
     dispatch(otherUsers());
   }, []);
-  console.log("authData", OtherUser);
+
   return (
     <>
       {OtherUser?.map((item: OtherUserModels) => {
         return (
-          <>
+          <React.Fragment key={item?._id}>
             {authData?._id !== item._id && (
               <Link
                 href={`/other-user/${item?._id}`}
@@ -37,7 +37,7 @@ const UserCard = () => {
                 </div>
               </Link>
             )}
-          </>
+          </React.Fragment>
         );
       })}
     </>

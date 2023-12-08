@@ -7,8 +7,4 @@ export default [
     title: "home",
     url: "/",
   },
-  {
-    title: "messages",
-    url: "/messages",
-  },
 ];

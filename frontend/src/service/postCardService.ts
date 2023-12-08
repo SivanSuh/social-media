@@ -16,7 +16,7 @@ const getAllPost = async () => {
 } 
 const createNewPost = async (data:PostCardModel) => {
     return api({
-        url:`/posts/createPost/${data.id}`,
+        url:`/posts/createPost`,
         method:"POST",
         data
     })

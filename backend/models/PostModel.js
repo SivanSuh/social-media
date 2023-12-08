@@ -12,7 +12,6 @@ const PostModel = new Schema(
     },
     liked: {
       type: [String],
-      default: 0,
     },
     user: {
       type: Schema.Types.ObjectId,

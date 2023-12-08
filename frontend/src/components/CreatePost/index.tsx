@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
 import Input from "../Atom/Input";
 import { useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { AppDispatch, RootState } from "@/store";
+import Style from "./style.module.css";
+import Button from "../Atom/Button";
+import { createNewPosts } from "@/store/slices/postCardSlice";
 
 const CreatePost = () => {
   const {
@@ -10,17 +13,25 @@ const CreatePost = () => {
     handleSubmit,
   } = useForm();
   const { authData } = useSelector((state: RootState) => state.auth);
+  const dispatch = AppDispatch();
 
-  const onSubmit = (data) => {
-    console.log("dataa", data);
+  const onSubmit = async (data: any) => {
+    console.log("dataaa", data);
+    await dispatch(
+      createNewPosts({
+        ...data,
+        user: authData?._id,
+      })
+    );
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)} className={Style.createPost}>
       <Input
         register={register}
         errors={errors}
         name="description"
+        placeholder="Desctiption"
         required
         type="text"
       />
@@ -29,9 +40,11 @@ const CreatePost = () => {
         errors={errors}
         name="image"
         required
+        placeholder="Image"
         type="text"
       />
-    </div>
+      <Button title="Submit" type="submit" />
+    </form>
   );
 };
 

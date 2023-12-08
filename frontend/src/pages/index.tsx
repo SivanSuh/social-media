@@ -1,9 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
 import Layout from "@/components/Layout";
 import PostCard from "@/components/PostCard";
 import { useEffect, useState } from "react";
@@ -13,19 +8,17 @@ import { login } from "@/store/slices/authSlice";
 import { useRouter } from "next/navigation";
 import LoginPage from "./auth/login";
 import postCardService from "@/service/postCardService";
+import CreatePost from "@/components/CreatePost";
 import { useSelector } from "react-redux";
-import PostCardModel from "@/models/PostCardModel";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ data }: any) {
   const [loginControl, setLoginControl] = useState<boolean>(false);
+  const { userPost } = useSelector((state: RootState) => state.post);
 
   const dispatch = AppDispatch();
   const refreshCookie = Cookies.get("login");
   const router = useRouter();
 
-  console.log("dta,", data);
   useEffect(() => {
     if (refreshCookie) {
       dispatch(login(JSON.parse(refreshCookie)));
@@ -35,6 +28,7 @@ export default function Home({ data }: any) {
       router.push("/auth/login");
     }
   }, [login]);
+  useEffect(() => {}, [data, userPost]);
 
   return (
     <>
@@ -47,8 +41,8 @@ export default function Home({ data }: any) {
       <main className="max-w-7xl mx-auto">
         {loginControl ? (
           <Layout>
+            <CreatePost />
             {data.map((item: any) => {
-              console.log("itemmm", item);
               return (
                 <PostCard
                   description={item?.description}
@@ -57,6 +51,7 @@ export default function Home({ data }: any) {
                   title={item?.user?.userName}
                   profileImage={item?.user?.profilePicture}
                   liked={item?.liked}
+                  key={item?._id}
                 />
               );
             })}

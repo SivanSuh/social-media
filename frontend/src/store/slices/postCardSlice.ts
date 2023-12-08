@@ -32,6 +32,16 @@ export const getAllUserPost = createAsyncThunk("get-user-post", async (id:string
         console.log(error)
     }
 })
+
+export const createNewPosts = createAsyncThunk("new-post",async (data:PostCardModel) => {
+    try {
+        const response = await postCardService.createNewPost(data);
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 const postCardSlice = createSlice({
     name:"PostCard",
     initialState,
@@ -47,6 +57,14 @@ const postCardSlice = createSlice({
         // get user post
         builder.addCase(getAllUserPost.fulfilled,(state,action) => {
             state.userPost = action.payload?.data
+        })
+
+        // create post 
+        builder.addCase(createNewPosts.fulfilled,(state,action) => {
+            state.userPost.push(action.payload)
+        })
+        builder.addCase(createNewPosts.rejected,(state,action) => {
+            state.error = true
         })
     }
 })

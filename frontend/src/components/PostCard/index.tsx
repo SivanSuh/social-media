@@ -13,7 +13,6 @@ const PostCard: React.FC<PostCardProps> = ({
   title,
   liked,
 }) => {
-  console.log("liked", liked);
   return (
     <div className={Style.postCard}>
       <Link href={`/other-user/${id}`} className={Style.title}>

@@ -2,13 +2,13 @@ const PostModel = require("../models/PostModel");
 const UserModels = require("../models/UserModels");
 
 const createPost = async (req, res) => {
-  const { description, image, liked } = req.body;
-  const { id } = req.params;
+  const { description, image, liked, user } = req.body;
+  // const { id } = req.params;
   try {
     const post = await PostModel.create({
       description,
       liked,
-      user: id,
+      user,
       image,
     }).then((item) =>
       PostModel.populate(item, { path: "user", select: "-password" })

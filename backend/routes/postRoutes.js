@@ -8,7 +8,7 @@ const {
 } = require("../controllers/postController");
 const router = express.Router();
 
-router.post("/createPost/:id", createPost);
+router.post("/createPost/", createPost);
 router.put("/likes/:postId", likePost);
 router.get("/getPost/:id", getPost);
 router.get("/getUserPosts/:id", getUserPost);
