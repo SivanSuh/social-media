@@ -29,11 +29,17 @@ const UserCard = () => {
                 <div className={Style.description}>
                   <Avatar image={item?.profilePicture} />
                   <h3>{item.userName}</h3>
-                  {authData?._id === item?._id ? (
-                    <small className={Style.small}>ME</small>
-                  ) : (
-                    <button className={Style.follow}>Follow</button>
-                  )}
+                  {/* {item?.followers?.map((val: string) => {
+                    return (
+                      <>
+                        {val.includes(authData?._id) ? (
+                          <small className={Style.small}>Follow</small>
+                        ) : (
+                          <small className="text-red-500">Not Follow</small>
+                        )}
+                      </>
+                    );
+                  })} */}
                 </div>
               </Link>
             )}

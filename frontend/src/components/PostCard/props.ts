@@ -5,4 +5,5 @@ export default interface PostCardProps {
     profileImage:string
     id:string;
     liked:Array<string>
+    postId?:string
 }

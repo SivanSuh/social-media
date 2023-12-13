@@ -8,7 +8,7 @@ import Cookie from "js-cookie"
 interface AuthProps {
     authData:RegisterModel | null | unknown 
     error:any
-    OtherUser:OtherUserModels | []
+    OtherUser:OtherUserModels[]
     selectUser:OtherUserModels | null
 }
 
@@ -24,7 +24,7 @@ export const login = createAsyncThunk("login", async (body:LoginModel, {rejectWi
         const response = await authService.loginService(body)
         Cookie.set("login",JSON.stringify(body))
         return response
-    } catch (error) {
+    } catch (error:any) {
         return rejectWithValue(error?.response?.data?.hata)
     }
 }) 
@@ -33,7 +33,7 @@ export const registerRequest = createAsyncThunk("register", async (body:Register
         const response = await authService.registerService(body)
         console.log("reposn",response)
         return response
-    } catch (error) {
+    } catch (error:any) {
         console.log("errr",error)
         return rejectWithValue(error?.response?.data?.hata)
     }

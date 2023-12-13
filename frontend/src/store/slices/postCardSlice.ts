@@ -7,12 +7,14 @@ interface PostSliceProps {
     posts:PostCardModel | null;
     error:boolean;
     userPost:any
+    liked:any
 }
 
 const initialState:PostSliceProps = {
     posts:null,
     error:false,
-    userPost:[]
+    userPost:[],
+    liked:{}
 }
 
 export const getUserPost = createAsyncThunk("getPost", async (data:string, {rejectWithValue}) => {
@@ -42,6 +44,23 @@ export const createNewPosts = createAsyncThunk("new-post",async (data:PostCardMo
     }
 })
 
+export const likeButton = createAsyncThunk("like",async (data:any,{rejectWithValue}) => {
+    try {
+        const response = await postCardService.like(data);
+        return response
+    } catch (error) {
+        return rejectWithValue(error)
+    }
+})
+
+export const getAllPosts = createAsyncThunk("get-all-post",async () => {
+    try {
+        const response = await postCardService.getAllPost();
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+})
 const postCardSlice = createSlice({
     name:"PostCard",
     initialState,
@@ -65,6 +84,16 @@ const postCardSlice = createSlice({
         })
         builder.addCase(createNewPosts.rejected,(state,action) => {
             state.error = true
+        })
+
+        // like 
+        builder.addCase(likeButton.fulfilled,(state,action) => {
+            state.liked = action.payload
+        })
+
+        // get All Post
+        builder.addCase(getAllPosts.fulfilled,(state,action) => {
+            state.posts = action.payload?.data
         })
     }
 })

@@ -32,6 +32,7 @@ const UserPost: React.FC<UserPostProps> = ({ items }) => {
           profileImage={items?.user?.profilePicture}
           liked={items?.liked}
           key={items?._id}
+          postId={items?._id}
         />
       </Popup>
     </>

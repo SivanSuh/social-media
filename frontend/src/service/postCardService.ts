@@ -21,10 +21,18 @@ const createNewPost = async (data:PostCardModel) => {
         data
     })
 }
+const like = async (data:any) => {
+    return api({
+        url:`/posts/likes/${data.postId}`,
+        method:"PUT",
+        data
+    })
+}
 const postCardService = {
     getCard,
     getAllPost,
-    createNewPost
+    createNewPost,
+    like
 }
 
 export default postCardService

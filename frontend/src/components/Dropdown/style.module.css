@@ -2,5 +2,5 @@
     @apply  relative
 }
 .dropdownMenu {
-    @apply absolute top-10 right-0 bg-white z-20 border-2 text-black w-32 p-1
+    @apply absolute top-10 right-0 bg-white z-50 border-2 text-black w-32 p-1
 }

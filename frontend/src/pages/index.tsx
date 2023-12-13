@@ -10,10 +10,13 @@ import LoginPage from "./auth/login";
 import postCardService from "@/service/postCardService";
 import CreatePost from "@/components/CreatePost";
 import { useSelector } from "react-redux";
+import { getAllPosts } from "@/store/slices/postCardSlice";
 
 export default function Home({ data }: any) {
   const [loginControl, setLoginControl] = useState<boolean>(false);
-  const { userPost } = useSelector((state: RootState) => state.post);
+  const { userPost, posts, liked } = useSelector(
+    (state: RootState) => state.post
+  );
 
   const dispatch = AppDispatch();
   const refreshCookie = Cookies.get("login");
@@ -28,7 +31,10 @@ export default function Home({ data }: any) {
       router.push("/auth/login");
     }
   }, [login]);
-  useEffect(() => {}, [data, userPost]);
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, [data, userPost, liked]);
+  console.log("data", { data });
 
   return (
     <>
@@ -42,7 +48,8 @@ export default function Home({ data }: any) {
         {loginControl ? (
           <Layout>
             <CreatePost />
-            {data.map((item: any) => {
+            {posts?.map((item: any) => {
+              console.log("item", { item });
               return (
                 <PostCard
                   description={item?.description}
@@ -52,6 +59,7 @@ export default function Home({ data }: any) {
                   profileImage={item?.user?.profilePicture}
                   liked={item?.liked}
                   key={item?._id}
+                  postId={item?._id}
                 />
               );
             })}
