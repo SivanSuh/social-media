@@ -7,9 +7,8 @@ import PostCard from "../PostCard";
 const UserPost: React.FC<UserPostProps> = ({ items }) => {
   const [open, setOpen] = useState(false);
 
-  const selectPost = (item) => {
+  const selectPost = (item: any) => {
     setOpen(true);
-    console.log("ite", item);
   };
   return (
     <>

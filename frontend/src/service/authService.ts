@@ -36,12 +36,20 @@ const getUserPost = async (id:string) => {
         method:"GET"
     })
 }
+const followUser = async (data:any) => {
+    return api({
+        url:`/auth/followUser/${data.followUserId}`,
+        method:"PUT",
+        data
+    })
+}
 
 const authService = {
     registerService,
     loginService,
     otherUser,
     getUser,
-    getUserPost
+    getUserPost,
+    followUser
 }
 export default authService

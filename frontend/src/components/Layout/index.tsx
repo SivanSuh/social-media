@@ -14,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className={Style.alan}>
         <Sidebar />
         <div className={Style.post}>{children}</div>
-        <div className="h-60 sticky top-16">
+        <div className="h-60 sticky top-24">
           <h2>Other User</h2>
           <Suspense fallback={<Loading />}>
             <UserCard />

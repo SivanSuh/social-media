@@ -1,5 +1,5 @@
 .sidebar {
-    @apply w-auto h-3.5 sticky top-14
+    @apply w-auto h-3.5 sticky top-24
 }
 .links {
     @apply p-1 hover:bg-gray-200 flex flex-col border-2 rounded-full mb-1  px-2

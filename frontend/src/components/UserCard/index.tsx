@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Avatar from "../AvatarComponent";
 import Style from "./style.module.css";
-import { otherUsers } from "@/store/slices/authSlice";
+import { followUserRequest, otherUsers } from "@/store/slices/authSlice";
 import { AppDispatch, RootState } from "@/store";
 import { useSelector } from "react-redux";
 import OtherUserModels from "@/models/OtherUserModel";
@@ -16,8 +16,10 @@ const UserCard = () => {
   }, []);
 
   return (
-    <>
+    <div className="flex flex-col">
       {OtherUser?.map((item: OtherUserModels) => {
+        const follow = item?.followers.includes(authData?._id);
+
         return (
           <React.Fragment key={item?._id}>
             {authData?._id !== item._id && (
@@ -26,27 +28,21 @@ const UserCard = () => {
                 className={Style.userCard}
                 key={item._id}
               >
+                <Avatar image={item?.profilePicture} />
+                <h3>{item.userName}</h3>
                 <div className={Style.description}>
-                  <Avatar image={item?.profilePicture} />
-                  <h3>{item.userName}</h3>
-                  {/* {item?.followers?.map((val: string) => {
-                    return (
-                      <>
-                        {val.includes(authData?._id) ? (
-                          <small className={Style.small}>Follow</small>
-                        ) : (
-                          <small className="text-red-500">Not Follow</small>
-                        )}
-                      </>
-                    );
-                  })} */}
+                  {follow ? (
+                    <span className="text-green-400">Follower</span>
+                  ) : (
+                    <span className="text-red-600">Not Follower</span>
+                  )}
                 </div>
               </Link>
             )}
           </React.Fragment>
         );
       })}
-    </>
+    </div>
   );
 };
 

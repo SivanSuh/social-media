@@ -22,7 +22,6 @@ const Register = () => {
   const { error } = useSelector((state: RootState) => state.auth);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
-    console.log("data", data);
     await dispatch(registerRequest(data))
       .unwrap()
       .then(() => router.push("/"));

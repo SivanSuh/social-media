@@ -1,5 +1,5 @@
 .userPost {
-    @apply flex  h-56 w-full
+    @apply flex  h-56 w-[48%]
 }
 .alan {
     @apply p-1 border-2 w-full

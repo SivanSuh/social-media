@@ -21,11 +21,9 @@ const Login = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
-    console.log("errrrrorr", error);
     await dispatch(login(data))
       .unwrap()
       .then(() => router.push("/"));
-    console.log("data", data);
   };
   return (
     <div className={Style.login}>

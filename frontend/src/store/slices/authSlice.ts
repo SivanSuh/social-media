@@ -6,7 +6,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Cookie from "js-cookie"
 
 interface AuthProps {
-    authData:RegisterModel | null | unknown 
+    authData:RegisterModel | null | unknown  | any
     error:any
     OtherUser:OtherUserModels[]
     selectUser:OtherUserModels | null
@@ -31,10 +31,8 @@ export const login = createAsyncThunk("login", async (body:LoginModel, {rejectWi
 export const registerRequest = createAsyncThunk("register", async (body:RegisterModel, {rejectWithValue}) => {
     try {
         const response = await authService.registerService(body)
-        console.log("reposn",response)
         return response
     } catch (error:any) {
-        console.log("errr",error)
         return rejectWithValue(error?.response?.data?.hata)
     }
 })
@@ -42,7 +40,7 @@ export const registerRequest = createAsyncThunk("register", async (body:Register
 export const otherUsers = createAsyncThunk("other-user", async () => {
     try {
         const response = await authService.otherUser()
-        console.log("reposn",response)
+       
         return response
     } catch (error) {
         console.log("errr",error)
@@ -58,16 +56,31 @@ export const selectedUser = createAsyncThunk("select-user", async (id:string) =>
         console.log(error)
     }
 })
+
+export const followUserRequest = createAsyncThunk("follow-user", async (data:any, {rejectWithValue}) => {
+    try {
+        const response = authService.followUser(data);
+        return response
+    } catch (error) {
+        rejectWithValue(error)
+    }
+})
+
 const authSlice = createSlice({
     name:"auth",
     initialState,
-    reducers:{},
+    reducers:{
+        logout:(state) => {
+          
+            Cookie.remove("login");
+            state.authData = null;
+        }
+    },
     extraReducers:(builder) => {
         builder.addCase(login.fulfilled,(state,action) => {
             state.authData = action.payload?.data
         })
         builder.addCase(login.rejected,(state,action) => {
-            console.log("errr",action.payload)
             state.error = action.payload
         })
         // register
@@ -91,8 +104,13 @@ const authSlice = createSlice({
         builder.addCase(selectedUser.rejected,(state,action) => {
             state.error = action.payload
         })
+
+        // follow
+        builder.addCase(followUserRequest.fulfilled,(state,action) => {
+            state.OtherUser = action.payload?.data
+        })
     },
 })
 
-
+export const { logout } = authSlice.actions;
 export default authSlice.reducer

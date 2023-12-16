@@ -43,19 +43,31 @@ const OtherUserDetailPage = () => {
           <Tab setTab={setTab}>
             <TabItem isActive={tab} title="Follewers" setTab={setTab}>
               <div className="flex flex-col justify-start  items-start gap-2">
-                {selectUser?.followers.map((item) => (
-                  <p className="flex items-center gap-4">
-                    <FollowersCard item={item} />
-                  </p>
-                ))}
+                {Number(selectUser?.followers.length) > 0 ? (
+                  selectUser?.followers.map((item) => (
+                    <p className="flex items-center gap-4">
+                      <FollowersCard item={item} />
+                    </p>
+                  ))
+                ) : (
+                  <span className="text-red-500 text-center w-full">
+                    Hiç takipçiniz yok
+                  </span>
+                )}
               </div>
             </TabItem>
 
             <TabItem isActive={tab} title="Posts" setTab={setTab}>
-              <div className="flex items-center justify-between gap-2">
-                {userPost?.map((item: any) => {
-                  return <UserPost items={item} key={item._id} />;
-                })}
+              <div className="flex items-center flex-wrap  justify-between gap-4">
+                {Number(userPost.length) > 0 ? (
+                  userPost?.map((item: any) => {
+                    return <UserPost items={item} key={item._id} />;
+                  })
+                ) : (
+                  <span className="text-red-500 text-center w-full">
+                    Henuz bir Postunuz Bulunmamaktadır.
+                  </span>
+                )}
               </div>
             </TabItem>
           </Tab>

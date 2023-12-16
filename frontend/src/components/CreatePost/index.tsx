@@ -6,23 +6,31 @@ import Style from "./style.module.css";
 import Button from "../Atom/Button";
 import { createNewPosts } from "@/store/slices/postCardSlice";
 
+const INITIAL_STATE = {
+  description: "",
+  image: "",
+};
+
 const CreatePost = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+    reset,
+  } = useForm({
+    defaultValues: INITIAL_STATE,
+  });
   const { authData } = useSelector((state: RootState) => state.auth);
   const dispatch = AppDispatch();
 
   const onSubmit = async (data: any) => {
-    console.log("dataaa", data);
     await dispatch(
       createNewPosts({
         ...data,
         user: authData?._id,
       })
     );
+    reset(INITIAL_STATE);
   };
 
   return (

@@ -21,7 +21,6 @@ const PostCard: React.FC<PostCardProps> = ({
   const dispatch = AppDispatch();
   const { authData } = useSelector((stata: RootState) => stata.auth);
 
-  console.log("id", { id });
   return (
     <div className={Style.postCard}>
       <Link href={`/other-user/${id}`} className={Style.title}>

@@ -34,7 +34,6 @@ export default function Home({ data }: any) {
   useEffect(() => {
     dispatch(getAllPosts());
   }, [data, userPost, liked]);
-  console.log("data", { data });
 
   return (
     <>
@@ -49,7 +48,6 @@ export default function Home({ data }: any) {
           <Layout>
             <CreatePost />
             {posts?.map((item: any) => {
-              console.log("item", { item });
               return (
                 <PostCard
                   description={item?.description}
