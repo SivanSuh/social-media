@@ -59,6 +59,7 @@ const Register = () => {
           name="email"
           placeholder="Email"
         />
+
         {/* <div className={Style.alan}>
           <label htmlFor="file-upload" className={Style.label}>
             Image Upload
