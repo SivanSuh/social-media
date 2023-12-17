@@ -18,7 +18,7 @@ const UserCard = () => {
   return (
     <div className="flex flex-col">
       {OtherUser?.map((item: OtherUserModels) => {
-        const follow = item?.followers.includes(authData?._id);
+        const follow = item?.followers?.includes(authData?._id);
 
         return (
           <React.Fragment key={item?._id}>
@@ -27,10 +27,23 @@ const UserCard = () => {
                 href={`/other-user/${item?._id}`}
                 className={Style.userCard}
                 key={item._id}
+                passHref
               >
                 <Avatar image={item?.profilePicture} />
                 <h3>{item.userName}</h3>
-                <div className={Style.description}>
+                <div
+                  className={Style.description}
+                  onClick={(e: any) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dispatch(
+                      followUserRequest({
+                        userId: authData?._id,
+                        followUserId: item?._id,
+                      })
+                    );
+                  }}
+                >
                   {follow ? (
                     <span className="text-green-400">Follower</span>
                   ) : (

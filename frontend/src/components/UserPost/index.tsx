@@ -1,8 +1,11 @@
 import Style from "./style.module.css";
 import UserPostProps from "./props";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Popup from "../Popup";
 import PostCard from "../PostCard";
+import { AppDispatch, RootState } from "@/store";
+import { selectedUser } from "@/store/slices/authSlice";
+import { useSelector } from "react-redux";
 
 const UserPost: React.FC<UserPostProps> = ({ items }) => {
   const [open, setOpen] = useState(false);
@@ -10,6 +13,13 @@ const UserPost: React.FC<UserPostProps> = ({ items }) => {
   const selectPost = (item: any) => {
     setOpen(true);
   };
+  const { selectUser } = useSelector((state: RootState) => state.auth);
+
+  const dispatch = AppDispatch();
+  useEffect(() => {
+    dispatch(selectedUser(items?.user));
+  }, [items]);
+  console.log("imteteasfaf", { selectUser });
   return (
     <>
       <div className={Style.userPost} onClick={() => selectPost(items)}>
@@ -27,8 +37,8 @@ const UserPost: React.FC<UserPostProps> = ({ items }) => {
           description={items?.description}
           image={items?.image}
           id={items?.user?._id}
-          title={items?.user?.userName}
-          profileImage={items?.user?.profilePicture}
+          title={selectUser?.userName as string}
+          profileImage={selectUser?.profilePicture as string}
           liked={items?.liked}
           key={items?._id}
           postId={items?._id}

@@ -17,7 +17,9 @@ const OtherUserDetailPage = () => {
   const router = useRouter();
   const dispatch = AppDispatch();
   const { slug } = router.query;
-  const { selectUser } = useSelector((state: RootState) => state.auth);
+  const { selectUser, OtherUser } = useSelector(
+    (state: RootState) => state.auth
+  );
   const { userPost } = useSelector((state: RootState) => state.post);
   const [tab, setTab] = useState("Follewers");
 
@@ -29,6 +31,8 @@ const OtherUserDetailPage = () => {
     dispatch(getAllUserPost(slug as string));
   }, [dispatch, slug]);
 
+  console.clear();
+  console.log("sleect user", selectUser);
   return (
     <Layout>
       <Suspense fallback={<Loading />}>
@@ -56,10 +60,23 @@ const OtherUserDetailPage = () => {
                 )}
               </div>
             </TabItem>
+            <TabItem isActive={tab} setTab={setTab} title="Following">
+              {Number(selectUser?.following?.length) > 0 ? (
+                selectUser?.following.map((values) => (
+                  <p className="flex items-center gap-4" key={values}>
+                    <FollowersCard item={values} />
+                  </p>
+                ))
+              ) : (
+                <span className="text-red-500 text-center w-full">
+                  Hiç Takip Ettiğiniz Kişi yok
+                </span>
+              )}
+            </TabItem>
 
             <TabItem isActive={tab} title="Posts" setTab={setTab}>
               <div className="flex items-center flex-wrap  justify-between gap-4">
-                {Number(userPost.length) > 0 ? (
+                {Number(userPost?.length) > 0 ? (
                   userPost?.map((item: any) => {
                     return <UserPost items={item} key={item._id} />;
                   })

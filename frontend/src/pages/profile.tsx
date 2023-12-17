@@ -47,7 +47,19 @@ export default function Profile() {
               )}
             </div>
           </TabItem>
-
+          <TabItem isActive={tab} setTab={setTab} title="Following">
+            {Number(selectUser?.following?.length) > 0 ? (
+              selectUser?.following.map((values) => (
+                <p className="flex items-center gap-4" key={values}>
+                  <FollowersCard item={values} />
+                </p>
+              ))
+            ) : (
+              <span className="text-red-500 text-center w-full">
+                Hiç Takip Ettiğiniz Kişi yok
+              </span>
+            )}
+          </TabItem>
           <TabItem isActive={tab} title="Posts" setTab={setTab}>
             <div className="flex items-center flex-wrap  justify-between gap-4">
               {Number(userPost.length) > 0 ? (

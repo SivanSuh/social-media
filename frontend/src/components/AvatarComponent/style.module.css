@@ -1,3 +1,3 @@
 .image {
-    @apply w-full h-full rounded-full
+    @apply w-full h-full rounded-full object-cover
 }

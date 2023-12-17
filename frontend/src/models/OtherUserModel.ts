@@ -6,6 +6,7 @@ export default  interface OtherUserModels {
   password: string
   profilePicture: string
   followers: string[]
+  following:string[]
   liked: string[]
   __v: number
 }

@@ -6,6 +6,7 @@ import Avatar from "../AvatarComponent";
 
 const FollowersCard: React.FC<FollowerdCardProps> = ({ item }) => {
   const { OtherUser } = useSelector((state: RootState) => state.auth);
+  console.log("item", { item });
   return (
     <>
       {OtherUser.filter((val: any) => val._id === item).map((values: any) => {

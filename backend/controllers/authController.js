@@ -68,6 +68,22 @@ const followUser = async (req, res) => {
     console.log(error);
   }
 };
+const followingUser = async (req, res) => {
+  const { userID } = req.body;
+  const { follow } = req.params;
+  try {
+    const user = await UserModels.findById(follow);
+    if (!user.followers.includes(userID)) {
+      await user.updateOne({ $push: { following: userID } });
+      res.status(200).json("takip ediyoraunuz");
+    } else {
+      await user.updateOne({ $pull: { following: userID } });
+      res.status(200).json("takip etmiyorsun");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   register,
@@ -75,4 +91,5 @@ module.exports = {
   otherUser,
   getUser,
   followUser,
+  followingUser,
 };
