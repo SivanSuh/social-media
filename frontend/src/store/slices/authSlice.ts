@@ -8,7 +8,7 @@ import Cookie from "js-cookie"
 interface AuthProps {
     authData:RegisterModel | null | unknown  | any
     error:any
-    OtherUser:OtherUserModels[] | any
+    OtherUser: any
     selectUser:OtherUserModels | null
 }
 
@@ -112,7 +112,7 @@ const authSlice = createSlice({
 
         // follow
         builder.addCase(followUserRequest.fulfilled,(state,action) => {
-            state.OtherUser?.followers.push(action.payload?.data)
+            state.OtherUser?.followers?.push(action.payload?.data)
         })
     },
 })

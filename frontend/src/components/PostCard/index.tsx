@@ -1,13 +1,12 @@
 import Avatar from "../AvatarComponent";
 import Style from "./style.module.css";
 import { FaRegCommentDots } from "react-icons/fa";
-import { GrLike } from "react-icons/gr";
 import PostCardProps from "./props";
 import Link from "next/link";
 import { AppDispatch, RootState } from "@/store";
 import { likeButton } from "@/store/slices/postCardSlice";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { SlLike } from "react-icons/sl";
 
 const PostCard: React.FC<PostCardProps> = ({
   profileImage,
@@ -21,6 +20,7 @@ const PostCard: React.FC<PostCardProps> = ({
   const dispatch = AppDispatch();
   const { authData } = useSelector((stata: RootState) => stata.auth);
 
+  const youLiked = liked?.includes(authData?._id);
   return (
     <div className={Style.postCard}>
       <Link href={`/other-user/${id}`} className={Style.title}>
@@ -47,11 +47,11 @@ const PostCard: React.FC<PostCardProps> = ({
             );
           }}
         >
-          <GrLike />
+          <SlLike color={youLiked ? "red" : null} />
           <span className="mx-1">{liked?.length}</span>
         </div>
         <div />
-        <FaRegCommentDots />
+        <FaRegCommentDots color="blue" />
       </div>
     </div>
   );

@@ -11,10 +11,6 @@ const UserCard = () => {
   const dispatch = AppDispatch();
   const { OtherUser, authData } = useSelector((state: RootState) => state.auth);
 
-  useEffect(() => {
-    dispatch(otherUsers());
-  }, []);
-
   return (
     <div className="flex flex-col">
       {OtherUser?.map((item: OtherUserModels) => {
@@ -26,11 +22,12 @@ const UserCard = () => {
               <Link
                 href={`/other-user/${item?._id}`}
                 className={Style.userCard}
-                key={item._id}
                 passHref
               >
-                <Avatar image={item?.profilePicture} />
-                <h3>{item.userName}</h3>
+                <div className="flex gap-2 items-center">
+                  <Avatar image={item?.profilePicture} />
+                  <h3>{item.userName}</h3>
+                </div>
                 <div
                   className={Style.description}
                   onClick={(e: any) => {
@@ -38,16 +35,16 @@ const UserCard = () => {
                     e.stopPropagation();
                     dispatch(
                       followUserRequest({
-                        userId: authData?._id,
+                        userID: authData?._id,
                         followUserId: item?._id,
                       })
                     );
                   }}
                 >
                   {follow ? (
-                    <span className="text-green-400">Follower</span>
+                    <span className={Style.small}>Follower</span>
                   ) : (
-                    <span className="text-red-600">Not Follower</span>
+                    <span className={Style.follow}>Not Follower</span>
                   )}
                 </div>
               </Link>

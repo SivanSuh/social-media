@@ -9,8 +9,10 @@ const TabItem: React.FC<TabItemProps> = ({
   setTab,
 }) => {
   return (
-    <div onClick={() => setTab(title)} className={` w-full`}>
-      <p className={`${isActive === title && Style.active} my-4 p3-2`}>
+    <div onClick={() => setTab(title)} className={` w-full `}>
+      <p
+        className={`${isActive === title && Style.active} my-4 cursor-pointer `}
+      >
         {title}
       </p>
       {isActive === title && (
