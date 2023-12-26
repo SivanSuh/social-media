@@ -59,10 +59,16 @@ const followUser = async (req, res) => {
     const user = await UserModels.findById(followUserId);
     if (!user.followers.includes(userID)) {
       await user.updateOne({ $push: { followers: userID } });
-      res.status(200).json("takip ediliyor");
+      res.status(200).json({
+        data: userID,
+        message: "takip ediliyor",
+      });
     } else {
       await user.updateOne({ $pull: { followers: userID } });
-      res.status(200).json("takip etmiyorsun");
+      res.status(200).json({
+        data: userID,
+        message: "takip etmiyorsun",
+      });
     }
   } catch (error) {
     console.log(error);

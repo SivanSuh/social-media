@@ -9,20 +9,39 @@ import Dropdown from "../Dropdown";
 import { useOnClickOutside } from "@/hooks/useClickAway";
 import { useRouter } from "next/navigation";
 import { logout } from "@/store/slices/authSlice";
+import Input from "../Atom/Input";
+import { useForm } from "react-hook-form";
+import UserCard from "../UserCard";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const { authData } = useSelector((state: RootState) => state.auth);
+  const [openModal, setOpenModal] = useState(false);
+
+  const { authData, OtherUser } = useSelector((state: RootState) => state.auth);
+
+  const {
+    register,
+    formState: { errors },
+    watch,
+  } = useForm();
+
   const clickRef = useRef(null);
   const router = useRouter();
   const dispatch = AppDispatch();
 
   useOnClickOutside(clickRef, () => setOpen(false));
 
+  const watchTheSearch = watch("input");
+  const filteredData = OtherUser.filter((item: any) =>
+    item.userName.toLowerCase().includes(watchTheSearch?.toLowerCase())
+  );
+  console.log("filtereed", filteredData);
   return (
     <nav className={Style.nav}>
       <Link href={"/"}>Logo</Link>
-      <div>Search</div>
+      <div onClick={() => setOpenModal(true)}>
+        Aramak istediğiniz Kullanıcıyı giriniz
+      </div>
       <div ref={clickRef}>
         <Dropdown
           open={open}
@@ -57,18 +76,20 @@ const Navbar = () => {
           </div>
         </Dropdown>
       </div>
-      {/* <Popup open={open} close={setOpen}>
-        <p>{authData?.userName}</p>
-        {authData?.userName ? (
-          <p>Logout</p>
-        ) : (
-          <>
-            <Link href="/auth/login">Login</Link>
-            <br />
-            <Link href="/auth/register">Register</Link>
-          </>
-        )}
-      </Popup> */}
+      <Popup open={openModal} close={() => setOpenModal(false)}>
+        <Input
+          errors={errors}
+          required={false}
+          name="input"
+          type="text"
+          placeholder="Kullanıcı Ara"
+          register={register}
+        />
+        <br />
+        {filteredData.map((val: any) => (
+          <p>{val.userName}</p>
+        ))}
+      </Popup>
     </nav>
   );
 };

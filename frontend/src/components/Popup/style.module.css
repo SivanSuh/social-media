@@ -1,5 +1,5 @@
 .popup {
-  @apply  fixed top-0 left-0 right-0 bottom-0 w-full bg-slate-300 h-full  bg-opacity-30
+  @apply  fixed top-0 left-0 right-0 bottom-0 w-full bg-slate-300 h-full  bg-opacity-30 text-black
 }
 .modal {
     @apply text-center fixed top-1/4  pb-10 bg-white max-w-md w-full right-2/4 h-auto translate-x-2/4 rounded-md p-2;
@@ -8,5 +8,5 @@
     @apply flex items-center justify-between p-1
 }
 .close {
-    @apply cursor-pointer hover:text-red-600 font-bold text-xl
+    @apply cursor-pointer hover:text-red-600 font-bold text-xl text-black
 }

@@ -112,8 +112,8 @@ const authSlice = createSlice({
 
         // follow
         builder.addCase(followUserRequest.fulfilled,(state,action) => {
-            console.log("action payload",action.payload)
-            state.OtherUser?.followers?.push(action.payload?.data)
+            console.log("action payload",action.payload?.data)
+             state.OtherUser?.followers?.push(action.payload?.data?.data)
         })
     },
 })

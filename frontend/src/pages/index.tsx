@@ -37,12 +37,6 @@ export default function Home() {
     dispatch(getAllPosts());
   }, [liked, userPost]);
 
-  const filteredValue = OtherUser.filter((item: any) =>
-    item.following.includes(authData?._id)
-  );
-
-  console.log("filtered data", posts);
-
   return (
     <>
       <Head>

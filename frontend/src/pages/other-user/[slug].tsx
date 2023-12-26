@@ -31,8 +31,6 @@ const OtherUserDetailPage = () => {
     dispatch(getAllUserPost(slug as string));
   }, [dispatch, slug]);
 
-  console.clear();
-  console.log("sleect user", selectUser);
   return (
     <Layout>
       <Suspense fallback={<Loading />}>

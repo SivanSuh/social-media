@@ -11,8 +11,6 @@ import { otherUsers } from "@/store/slices/authSlice";
 const UserCard = lazy(() => import("../UserCard"));
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { OtherUser, authData } = useSelector((state: RootState) => state.auth);
-
   const dispatch = AppDispatch();
 
   useEffect(() => {

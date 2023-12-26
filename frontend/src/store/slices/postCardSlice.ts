@@ -90,7 +90,8 @@ const postCardSlice = createSlice({
 
         // create post 
         builder.addCase(createNewPosts.fulfilled,(state,action) => {
-            state.userPost.push(action.payload)
+            console.log("casca",action.payload?.data)
+            state.posts.push(action.payload?.data)
         })
         builder.addCase(createNewPosts.rejected,(state,action) => {
             state.error = true
@@ -108,7 +109,6 @@ const postCardSlice = createSlice({
 
         // delete post 
         builder.addCase(deletePostId.fulfilled,(state,action) => {
-            console.log("action payload",action.payload?.data)
            state.posts = state.posts?.filter((val:any) => val?._id  !== action.payload?.data?._id)
         })
 

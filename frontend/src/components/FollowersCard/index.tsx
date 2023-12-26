@@ -6,12 +6,12 @@ import Avatar from "../AvatarComponent";
 
 const FollowersCard: React.FC<FollowerdCardProps> = ({ item }) => {
   const { OtherUser } = useSelector((state: RootState) => state.auth);
-  console.log("item", { item });
+
   return (
     <>
       {OtherUser.filter((val: any) => val._id === item).map((values: any) => {
         return (
-          <div className="w-20 flex items-center gap-3" key={values._id}>
+          <div className="w-20 flex items-center gap-3" key={values?._id}>
             <Avatar image={values.profilePicture} />
             <span className="whitespace-nowrap">{values.userName}</span>
           </div>
