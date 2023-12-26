@@ -28,11 +28,20 @@ const like = async (data:any) => {
         data
     })
 }
+
+const deletePost = async (data:string) => {
+    return api({
+        url:`/posts/deletePost/${data}`,
+        method:"DELETE",
+    })
+}
+
 const postCardService = {
     getCard,
     getAllPost,
     createNewPost,
-    like
+    like,
+    deletePost
 }
 
 export default postCardService

@@ -7,16 +7,17 @@ import Cookies from "js-cookie";
 import { login } from "@/store/slices/authSlice";
 import { useRouter } from "next/navigation";
 import LoginPage from "./auth/login";
-import postCardService from "@/service/postCardService";
 import CreatePost from "@/components/CreatePost";
 import { useSelector } from "react-redux";
 import { getAllPosts } from "@/store/slices/postCardSlice";
 
-export default function Home({ data }: any) {
+export default function Home() {
   const [loginControl, setLoginControl] = useState<boolean>(false);
   const { userPost, posts, liked } = useSelector(
     (state: RootState) => state.post
   );
+
+  const { authData, OtherUser } = useSelector((state: RootState) => state.auth);
 
   const dispatch = AppDispatch();
   const refreshCookie = Cookies.get("login");
@@ -31,9 +32,16 @@ export default function Home({ data }: any) {
       router.push("/auth/login");
     }
   }, [login]);
+
   useEffect(() => {
     dispatch(getAllPosts());
-  }, [data, userPost, liked]);
+  }, [liked, userPost]);
+
+  const filteredValue = OtherUser.filter((item: any) =>
+    item.following.includes(authData?._id)
+  );
+
+  console.log("filtered data", posts);
 
   return (
     <>
@@ -70,11 +78,11 @@ export default function Home({ data }: any) {
   );
 }
 
-export async function getServerSideProps() {
-  const res = await postCardService.getAllPost();
-  return {
-    props: {
-      data: res.data,
-    },
-  };
-}
+// export async function getServerSideProps() {
+//   const res = await postCardService.getAllPost();
+//   return {
+//     props: {
+//       data: res.data,
+//     },
+//   };
+// }

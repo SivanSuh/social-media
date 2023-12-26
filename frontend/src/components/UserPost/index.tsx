@@ -16,10 +16,11 @@ const UserPost: React.FC<UserPostProps> = ({ items }) => {
   const { selectUser } = useSelector((state: RootState) => state.auth);
 
   const dispatch = AppDispatch();
+
   useEffect(() => {
     dispatch(selectedUser(items?.user));
   }, [items]);
-  console.log("imteteasfaf", { selectUser });
+
   return (
     <>
       <div className={Style.userPost} onClick={() => selectPost(items)}>

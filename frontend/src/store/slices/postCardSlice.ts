@@ -4,7 +4,7 @@ import postCardService from "@/service/postCardService";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 interface PostSliceProps {
-    posts:PostCardModel | null;
+    posts:PostCardModel[] | null | any;
     error:boolean;
     userPost:any
     liked:any
@@ -61,6 +61,16 @@ export const getAllPosts = createAsyncThunk("get-all-post",async () => {
         console.log(error)
     }
 })
+
+export const deletePostId = createAsyncThunk("delete-post", async (data:string) => {
+    try {
+        const response = await postCardService.deletePost(data);
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}) 
+
 const postCardSlice = createSlice({
     name:"PostCard",
     initialState,
@@ -95,6 +105,13 @@ const postCardSlice = createSlice({
         builder.addCase(getAllPosts.fulfilled,(state,action) => {
             state.posts = action.payload?.data
         })
+
+        // delete post 
+        builder.addCase(deletePostId.fulfilled,(state,action) => {
+            console.log("action payload",action.payload?.data)
+           state.posts = state.posts?.filter((val:any) => val?._id  !== action.payload?.data?._id)
+        })
+
     }
 })
 

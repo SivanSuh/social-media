@@ -20,6 +20,16 @@ const createPost = async (req, res) => {
   }
 };
 
+const deletePost = async (req, res) => {
+  const { data } = req.params;
+  try {
+    const post = await PostModel.findByIdAndDelete(data);
+    res.status(200).json(post);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const likePost = async (req, res) => {
   const { postId } = req.params;
   const { userId } = req.body;
@@ -83,4 +93,5 @@ module.exports = {
   getUserPost,
   getAllPost,
   likePost,
+  deletePost,
 };
