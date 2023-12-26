@@ -7,11 +7,13 @@ import Loading from "../Loading";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { otherUsers } from "@/store/slices/authSlice";
+import OtherUserModels from "@/models/OtherUserModel";
 
 const UserCard = lazy(() => import("../UserCard"));
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const dispatch = AppDispatch();
+  const { OtherUser, authData } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     dispatch(otherUsers());
@@ -25,9 +27,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className={Style.post}>{children}</div>
         <div className="h-60 sticky top-24">
           <h2>Other User</h2>
-          {/* <Suspense fallback={<Loading />}> */}
-          <UserCard />
-          {/* </Suspense> */}
+          {OtherUser?.map((item: any) => {
+            return <UserCard item={item} />;
+          })}
         </div>
       </div>
     </main>

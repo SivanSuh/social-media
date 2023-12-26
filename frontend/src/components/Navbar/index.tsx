@@ -33,7 +33,7 @@ const Navbar = () => {
 
   const watchTheSearch = watch("input");
   const filteredData = OtherUser.filter((item: any) =>
-    item.userName.toLowerCase().includes(watchTheSearch?.toLowerCase())
+    item?.userName?.toLowerCase().includes(watchTheSearch?.toLowerCase())
   );
   console.log("filtereed", filteredData);
   return (
@@ -86,8 +86,9 @@ const Navbar = () => {
           register={register}
         />
         <br />
+        <br />
         {filteredData.map((val: any) => (
-          <p>{val.userName}</p>
+          <UserCard item={val} />
         ))}
       </Popup>
     </nav>
