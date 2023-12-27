@@ -2,7 +2,7 @@ import Link from "next/link";
 import Avatar from "../AvatarComponent";
 import Style from "./style.module.css";
 import Popup from "../Popup";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import Dropdown from "../Dropdown";
@@ -35,12 +35,12 @@ const Navbar = () => {
   const filteredData = OtherUser.filter((item: any) =>
     item?.userName?.toLowerCase().includes(watchTheSearch?.toLowerCase())
   );
-  console.log("filtereed", filteredData);
+
   return (
     <nav className={Style.nav}>
       <Link href={"/"}>Logo</Link>
-      <div onClick={() => setOpenModal(true)}>
-        Aramak istediğiniz Kullanıcıyı giriniz
+      <div onClick={() => setOpenModal(true)} style={{ cursor: "pointer" }}>
+        Aramak istediğiniz Kullanıcı için Tıklayınız
       </div>
       <div ref={clickRef}>
         <Dropdown
@@ -87,7 +87,7 @@ const Navbar = () => {
         />
         <br />
         <br />
-        {filteredData.map((val: any) => (
+        {filteredData?.map((val: any) => (
           <UserCard item={val} />
         ))}
       </Popup>

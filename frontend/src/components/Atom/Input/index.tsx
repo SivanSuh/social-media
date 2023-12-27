@@ -13,6 +13,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <>
       <input
+        autoComplete="off"
         type={type}
         placeholder={placeholder}
         name={name}

@@ -10,7 +10,9 @@ import UserCardProps from "./props";
 
 const UserCard: React.FC<UserCardProps> = ({ item }) => {
   const dispatch = AppDispatch();
-  const { OtherUser, authData } = useSelector((state: RootState) => state.auth);
+  const { OtherUser, authData, followers } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   const follow = item?.followers?.includes(authData?._id);
 

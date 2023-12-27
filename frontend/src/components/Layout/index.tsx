@@ -13,11 +13,13 @@ const UserCard = lazy(() => import("../UserCard"));
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const dispatch = AppDispatch();
-  const { OtherUser, authData } = useSelector((state: RootState) => state.auth);
+  const { OtherUser, authData, followers } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   useEffect(() => {
     dispatch(otherUsers());
-  }, []);
+  }, [followers]);
 
   return (
     <main className={Style.layout}>

@@ -32,11 +32,14 @@ const PostCard: React.FC<PostCardProps> = ({
     await dispatch(deletePostId(postId as string));
     //setOpen(false);
   };
-  console.log("postId", postId);
+
   return (
     <div className={Style.postCard}>
       <div className="flex justify-between items-center">
-        <Link href={`/other-user/${id}`} className={Style.title}>
+        <Link
+          href={deleteselectedPost ? "/profile" : `/other-user/${id}`}
+          className={Style.title}
+        >
           <Avatar image={profileImage} />
           <h4>{title}</h4>
         </Link>

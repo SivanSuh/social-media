@@ -10,6 +10,7 @@ interface AuthProps {
     error:any
     OtherUser: any
     selectUser:OtherUserModels | null
+    followers:any
 }
 
 const initialState:AuthProps = {
@@ -21,7 +22,8 @@ const initialState:AuthProps = {
             followers:[]
         }
     ],
-    selectUser:null
+    selectUser:null,
+    followers:{}
 }
 
 export const login = createAsyncThunk("login", async (body:LoginModel, {rejectWithValue}) => {
@@ -112,8 +114,7 @@ const authSlice = createSlice({
 
         // follow
         builder.addCase(followUserRequest.fulfilled,(state,action) => {
-            console.log("action payload",action.payload?.data)
-             state.OtherUser?.followers?.push(action.payload?.data?.data)
+            state.followers = action.payload?.data
         })
     },
 })
