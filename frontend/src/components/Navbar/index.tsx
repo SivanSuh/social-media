@@ -76,7 +76,11 @@ const Navbar = () => {
           </div>
         </Dropdown>
       </div>
-      <Popup open={openModal} close={() => setOpenModal(false)}>
+      <Popup
+        open={openModal}
+        close={() => setOpenModal(false)}
+        title="Aramak istediğiniz Kullanıcıyı giriniz"
+      >
         <Input
           errors={errors}
           required={false}
@@ -87,9 +91,10 @@ const Navbar = () => {
         />
         <br />
         <br />
-        {filteredData?.map((val: any) => (
-          <UserCard item={val} />
-        ))}
+        {watchTheSearch &&
+          filteredData?.map((val: any) => (
+            <UserCard item={val} key={val?._id} />
+          ))}
       </Popup>
     </nav>
   );

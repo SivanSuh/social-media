@@ -11,6 +11,7 @@ interface AuthProps {
     OtherUser: any
     selectUser:OtherUserModels | null
     followers:any
+    loadingPage:boolean
 }
 
 const initialState:AuthProps = {
@@ -23,7 +24,8 @@ const initialState:AuthProps = {
         }
     ],
     selectUser:null,
-    followers:{}
+    followers:{},
+    loadingPage:false
 }
 
 export const login = createAsyncThunk("login", async (body:LoginModel, {rejectWithValue}) => {
@@ -81,10 +83,17 @@ const authSlice = createSlice({
           
             Cookie.remove("login");
             state.authData = null;
+        },
+        resetUser:(state) => {
+            state.selectUser = null
+        },
+        setLoading:(state,action)=>{
+            state.loadingPage = action.payload
         }
     },
     extraReducers:(builder) => {
         builder.addCase(login.fulfilled,(state,action) => {
+            state.loadingPage = false
             state.authData = action.payload?.data
         })
         builder.addCase(login.rejected,(state,action) => {
@@ -93,12 +102,14 @@ const authSlice = createSlice({
         // register
 
         builder.addCase(registerRequest.fulfilled,(state,action) => {
+            state.loadingPage = false
             state.authData = action.payload?.data
         })
         builder.addCase(registerRequest.rejected,(state,action) => {
             state.error = action.payload
         })
         builder.addCase(otherUsers.fulfilled,(state,action) => {
+            state.loadingPage = false
             state.OtherUser = action.payload?.data
         })
         builder.addCase(otherUsers.rejected, (state,action) => {
@@ -106,6 +117,7 @@ const authSlice = createSlice({
         }) 
 
         builder.addCase(selectedUser.fulfilled,(state,action) => {
+            state.loadingPage = false
             state.selectUser = action.payload?.data
         })
         builder.addCase(selectedUser.rejected,(state,action) => {
@@ -114,10 +126,11 @@ const authSlice = createSlice({
 
         // follow
         builder.addCase(followUserRequest.fulfilled,(state,action) => {
+            state.loadingPage = false
             state.followers = action.payload?.data
         })
     },
 })
 
-export const { logout } = authSlice.actions;
+export const { logout, resetUser, setLoading } = authSlice.actions;
 export default authSlice.reducer

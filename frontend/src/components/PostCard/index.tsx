@@ -78,7 +78,7 @@ const PostCard: React.FC<PostCardProps> = ({
         <div />
         <FaRegCommentDots color="blue" />
       </div>
-      <Popup open={open} close={() => setOpen(false)}>
+      <Popup open={open} close={() => setOpen(false)} title={description}>
         <p>Silmek İstediğinize Emin misiniz?</p>
         <br />
         <Button title="Sil" onClick={deletedPost} />

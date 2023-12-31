@@ -35,10 +35,10 @@ export default function Profile() {
           <TabItem isActive={tab} title="Follewers" setTab={setTab}>
             <div className="flex flex-col justify-start  items-start gap-2">
               {Number(selectUser?.followers.length) > 0 ? (
-                selectUser?.followers.map((item) => (
-                  <p className="flex items-center gap-4">
+                selectUser?.followers.map((item: any) => (
+                  <div className="flex items-center gap-4" key={item?._id}>
                     <FollowersCard item={item} />
-                  </p>
+                  </div>
                 ))
               ) : (
                 <span className="text-red-500 text-center w-full">
@@ -49,10 +49,10 @@ export default function Profile() {
           </TabItem>
           <TabItem isActive={tab} setTab={setTab} title="Following">
             {Number(selectUser?.following?.length) > 0 ? (
-              selectUser?.following.map((values) => (
-                <p className="flex items-center gap-4" key={values}>
+              selectUser?.following.map((values: any) => (
+                <div className="flex items-center gap-4" key={values?._id}>
                   <FollowersCard item={values} />
-                </p>
+                </div>
               ))
             ) : (
               <span className="text-red-500 text-center w-full">

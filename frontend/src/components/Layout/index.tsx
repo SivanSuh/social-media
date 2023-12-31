@@ -6,8 +6,7 @@ import Style from "./style.module.css";
 import Loading from "../Loading";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
-import { otherUsers } from "@/store/slices/authSlice";
-import OtherUserModels from "@/models/OtherUserModel";
+import { otherUsers, resetUser } from "@/store/slices/authSlice";
 
 const UserCard = lazy(() => import("../UserCard"));
 
@@ -21,13 +20,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     dispatch(otherUsers());
   }, [followers]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(resetUser());
+    };
+  }, [dispatch]);
+
   return (
     <main className={Style.layout}>
       <Navbar />
       <div className={Style.alan}>
         <Sidebar />
         <div className={Style.post}>{children}</div>
-        <div className="h-60 sticky top-24">
+        <div className="h-60 sticky top-14">
           <h2>Other User</h2>
           {OtherUser?.map((item: any) => {
             return <UserCard item={item} />;

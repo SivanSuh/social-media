@@ -74,7 +74,9 @@ export const deletePostId = createAsyncThunk("delete-post", async (data:string) 
 const postCardSlice = createSlice({
     name:"PostCard",
     initialState,
-    reducers:{},
+    reducers:{
+      
+    },
     extraReducers:(builder) => {
         builder.addCase(getUserPost.fulfilled,(state,action) => {
             state.posts = action.payload?.data

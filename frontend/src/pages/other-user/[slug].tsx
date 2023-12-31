@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { Suspense, useEffect, useState } from "react";
 import { SlUserFollowing } from "react-icons/sl";
 import { useSelector } from "react-redux";
+import { resetUser } from "@/store/slices/authSlice";
 
 const OtherUserDetailPage = () => {
   const router = useRouter();
@@ -25,12 +26,17 @@ const OtherUserDetailPage = () => {
 
   useEffect(() => {
     dispatch(selectedUser(slug as string));
-  }, [slug, dispatch]);
+  }, [dispatch, slug]);
 
   useEffect(() => {
     dispatch(getAllUserPost(slug as string));
   }, [dispatch, slug]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(resetUser());
+    };
+  }, [dispatch]);
   return (
     <Layout>
       <Suspense fallback={<Loading />}>
@@ -46,10 +52,10 @@ const OtherUserDetailPage = () => {
             <TabItem isActive={tab} title="Follewers" setTab={setTab}>
               <div className="flex flex-col justify-start  items-start gap-2">
                 {Number(selectUser?.followers.length) > 0 ? (
-                  selectUser?.followers.map((item) => (
-                    <p className="flex items-center gap-4">
+                  selectUser?.followers.map((item: any) => (
+                    <div className="flex items-center gap-4" key={item?._id}>
                       <FollowersCard item={item} />
-                    </p>
+                    </div>
                   ))
                 ) : (
                   <span className="text-red-500 text-center w-full">
@@ -60,10 +66,10 @@ const OtherUserDetailPage = () => {
             </TabItem>
             <TabItem isActive={tab} setTab={setTab} title="Following">
               {Number(selectUser?.following?.length) > 0 ? (
-                selectUser?.following.map((values) => (
-                  <p className="flex items-center gap-4" key={values}>
+                selectUser?.following.map((values: any) => (
+                  <div className="flex items-center gap-4" key={values?._id}>
                     <FollowersCard item={values} />
-                  </p>
+                  </div>
                 ))
               ) : (
                 <span className="text-red-500 text-center w-full">
