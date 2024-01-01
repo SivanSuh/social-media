@@ -2,6 +2,8 @@
 
 you can login or register and create ,like and delete post. Follow Other user
 
+![ScreenShoot](./frontend/public/page.png)
+
 ## Frontend
 
 - Next js
